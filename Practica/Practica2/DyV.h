@@ -20,7 +20,7 @@ int busquedaBinaria(T val, const std::vector<T>& v, int ini, int fin){
         return busquedaBinaria( val, v , medio+1, fin);
 }
 
-    template <typename T>
+template <typename T>
 void quicksort(std::vector<T>& v, int ini, int fin){
     if (ini < fin){
         int pivote = partition(v, ini, fin);
