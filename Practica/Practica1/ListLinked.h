@@ -16,6 +16,14 @@ class ListLinked : public List<T> {
         Node<T>* first; // puntero al primer nodo de la secuencia enlazada
         int n; // numero de elementos de la lista
 
+        // devuelve el nodo en la posicion pos (pos debe ser valida)
+        Node<T>* getNode(int pos){
+            Node<T>* curr = first;
+            for (int i = 0; i < pos; i++)
+                curr = curr->next;
+            return curr;
+        }
+
     public:
 
         // metodos publicos heredados de List.h
@@ -25,7 +33,7 @@ class ListLinked : public List<T> {
             if (pos == 0){ // si la posicion es 0, insertamos al principio
                 first = new Node<T>(e, first); // creamos un nuevo nodo con el elemento e y apuntando al primer nodo
             } else { // si la posicion es mayor que 0, insertamos en medio 
-                Node<T>* prev = first(pos-1); // obtenemos el nodo anterior a la posicion donde queremos insertar
+                Node<T>* prev = getNode(pos-1); // obtenemos el nodo anterior a la posicion donde queremos insertar
                 prev->next = new Node<T>(e, prev->next); // creamos un nuevo nodo con el elemento e y apuntando al siguiente nodo del anterior
             }
             n++; // aumentamos el numero de elementos en la lista
@@ -35,7 +43,7 @@ class ListLinked : public List<T> {
             insert(n, e); // insertamos el elemento e al final de la lista
         }
 
-		void preprend(T e) override{
+		void prepend(T e) override{
             insert(0, e); // insertamos el elemento e al principio de la lista
         }
 
@@ -48,7 +56,7 @@ class ListLinked : public List<T> {
                 to_delete = first; // apuntamos al primer nodo
                 first = first->next; // movemos el puntero first al siguiente nodo
             } else { // si la posicion es mayor que 0, eliminamos un nodo en medio
-                Node<T>* prev = first(pos-1); // obtenemos el nodo anterior al que queremos eliminar
+                Node<T>* prev = getNode(pos-1); // obtenemos el nodo anterior al que queremos eliminar
                 to_delete = prev->next; // apuntamos al nodo que vamos a eliminar
                 prev->next = to_delete->next; // enlazamos el nodo anterior con el siguiente del nodo a eliminar
             }
@@ -61,7 +69,7 @@ class ListLinked : public List<T> {
 		T get (int pos) override{
             if (pos < 0 || pos >= n) // comprobamos si la posicion estña fuera de rango
                 throw std::out_of_range("Posicion fuera de rango"); // lanzamos la excepcion fuera de rango
-            return firts(pos)->data; // devolvemos el dato del nodo en la posicion pos
+            return getNode(pos)->data; // devolvemos el dato del nodo en la posicion pos
         }
 
 		int search(T e) override{
@@ -70,7 +78,7 @@ class ListLinked : public List<T> {
             while (curr != nullptr){ // mientras no lleguemos al final de la lista
                 if (curr->data == e) // si encontramos el elemento e
                     return index; // devolvemos el indice del nodo donde se encuentra e
-                idx++; // aumentamos el indice
+                index++; // aumentamos el indice
                 curr = curr->next; // movemos el puntero al siguiente nodo
             }
             return -1; // devolvemos -1 si no encontramos el elemento e
@@ -103,7 +111,7 @@ class ListLinked : public List<T> {
         };
 
         T operator[](int pos){
-            get(pos); // llamamos al metodo get para obtener el elemento en la posicion pos
+            return get(pos); // llamamos al metodo get para obtener el elemento en la posicion pos
         };
 
         friend std::ostream& operator<<(std::ostream &out, ListLinked &list){
@@ -125,4 +133,4 @@ class ListLinked : public List<T> {
         
 };
 
-#endif LIST_LINKED_H
+#endif // LIST_LINKED_H

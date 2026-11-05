@@ -1,3 +1,6 @@
+#ifndef LIST_ARRAY_H
+#define LIST_ARRAY_H
+
 #include <ostream>
 #include <stdexcept>
 #include "List.h"
@@ -29,7 +32,7 @@ class ListArray : public List<T> {
             insert(n, e);   // insertamos el elemento e en la ultima posicion del array
         }
         
-		void preprend(T e) override{
+		void prepend(T e) override{
 	        insert(0, e); // insertamos el elemento e en la primera posicion del array
 	    }
 	    
@@ -79,7 +82,7 @@ class ListArray : public List<T> {
         }
         
         T operator[](int pos){
-            get(pos); // devuelve el elemento en la posicion pos
+            return get(pos); // devuelve el elemento en la posicion pos
         }
         
         friend std::ostream& operator<<(std::ostream &out, ListArray<T> &list){
@@ -102,3 +105,5 @@ class ListArray : public List<T> {
              
         }
 };
+
+#endif
