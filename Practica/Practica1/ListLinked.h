@@ -119,7 +119,9 @@ class ListLinked : public List<T> {
             out << "["; // imprimimos el corchete de apertura
 
             while (aux != nullptr){ // bucle para recorrer la lista mientras aux no sea un nodo vacio
-                out << aux->data << ","; // imprimimos el dato del nodo donde apunta aux
+                out << aux->data; // imprimimos el dato del nodo donde apunta aux
+                if (aux->next != nullptr) // solo ponemos coma si hay un nodo siguiente
+                    out << ",";
                 aux = aux->next; // movemos aux al siguiente nodo de la lista
             }
             
